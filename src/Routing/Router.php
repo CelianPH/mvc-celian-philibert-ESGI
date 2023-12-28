@@ -4,7 +4,7 @@ namespace App\Routing;
 
 use App\Routing\Attribute\Route as RouteAttribute;
 use App\Routing\Exception\RouteNotFoundException;
-use App\Middleware\AuthenticatedMiddleware; // Ajout de l'import pour le middleware
+use App\Middleware\AuthenticatedMiddleware; // import middleware
 use App\Utils\Filesystem;
 use Psr\Container\ContainerInterface;
 
@@ -41,9 +41,7 @@ class Router
 
     public function registerRoutes(): void
     {
-        // Explorer le répertoire des contrôleurs
-        // Construire tous les noms de classes (FQCN)
-        // IndexController.php => IndexController => App\Controller\IndexController
+
         $controllersFqcn = Filesystem::getFqcns(self::CONTROLLERS_BASE_DIR, self::CONTROLLERS_NAMESPACE_PREFIX);
 
         foreach ($controllersFqcn as $fqcn) {
@@ -92,7 +90,7 @@ class Router
             throw new RouteNotFoundException();
         }
 
-        $this->executeMiddlewares(); // Nouvelle ligne pour exécuter les middlewares
+        $this->executeMiddlewares();
 
         // Constructeur
         $controllerClass = $route->getControllerClass();
@@ -107,7 +105,6 @@ class Router
 
     private function executeMiddlewares(): void
     {
-        // Ajoutez les middlewares au besoin
         $authenticatedMiddleware = new AuthenticatedMiddleware($this->container);
         $authenticatedMiddleware->handle();
     }

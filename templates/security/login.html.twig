@@ -1,16 +1,13 @@
-{# templates/security/login.html.twig #}
+{% extends 'base.html.twig' %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Page de connexion</title>
-</head>
-<body>
-    <h2>Connexion</h2>
+{% block title %}Login{% endblock %}
 
-    <form action="{{ path('login') }}" method="post">
-        <label for="username">Nom d'utilisateur :</label>
+{% block body %}
+    <h1>Login</h1>
+
+    <form action="/login/confirm" method="post">
+        {# Ajoutez ici les champs email et mot de passe du formulaire #}
+        <label for="username">Email :</label>
         <input type="text" id="username" name="_username" required><br>
 
         <label for="password">Mot de passe :</label>
@@ -18,5 +15,4 @@
 
         <input type="submit" value="Se connecter">
     </form>
-</body>
-</html>
+{% endblock %}
